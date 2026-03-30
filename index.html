@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -25,4 +26,190 @@
     <script src="script.js"></script>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>碳排放交互可视化</title>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 30px;
+    background: #f5f5f5;
+}
+h1 {
+    text-align: center;
+}
+#vis {
+    width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌍 全球碳排放 Top-N 交互分析</h1>
+<div id="vis"></div>
+
+<script>
+async function renderVisualization() {
+
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+        "data": { "url": "data/data.csv" },
+
+        // 🌟 全局参数
+        "params": [
+            { 
+                "name": "topN", 
+                "value": 15, 
+                "bind": {"input": "range", "min": 5, "max": 40, "name": "Top-N："} 
+            },
+            { 
+                "name": "selected_year", 
+                "value": 2020, 
+                "bind": {"input": "range", "min": 2014, "max": 2023, "step": 1, "name": "年份："} 
+            },
+            {
+                "name": "search",
+                "value": "",
+                "bind": {"input": "text", "placeholder": "输入国家名过滤"}
+            }
+        ],
+
+        // 🌟 数据预处理
+        "transform": [
+            { "calculate": "datum['Reference area']", "as": "country" },
+            { "calculate": "toNumber(datum['OBS_VALUE']) * pow(10, datum['UNIT_MULT'])", "as": "real_value" },
+            { "calculate": "toNumber(datum['TIME_PERIOD'])", "as": "year" }
+        ],
+
+        "vconcat": [
+
+            // ======================
+            // 📊 图1：柱状图（唯一 selection 所在）
+            // ======================
+            {
+                "title": "各国人均碳排放排名",
+
+                "params": [
+                    {
+                        "name": "pts",
+                        "select": {
+                            "type": "point",
+                            "fields": ["country"],
+                            "on": "click",
+                            "clear": "dblclick"
+                        }
+                    }
+                ],
+
+                "width": "container",
+                "height": 350,
+
+                "transform": [
+                    { "filter": "datum.year == selected_year" },
+                    { "filter": "search == '' || indexof(datum.country, search) >= 0" },
+                    {
+                        "window": [{"op": "dense_rank", "as": "rank"}],
+                        "sort": [{"field": "real_value", "order": "descending"}]
+                    },
+                    { "filter": "datum.rank <= topN" }
+                ],
+
+                "mark": {
+                    "type": "bar",
+                    "cornerRadiusTopLeft": 4,
+                    "cornerRadiusTopRight": 4,
+                    "cursor": "pointer"
+                },
+
+                "encoding": {
+                    "x": {
+                        "field": "country",
+                        "type": "nominal",
+                        "sort": "-y",
+                        "title": "国家"
+                    },
+                    "y": {
+                        "field": "real_value",
+                        "type": "quantitative",
+                        "title": "kg CO₂-e"
+                    },
+                    "color": {
+                        "condition": {"param": "pts", "value": "#2563eb"},
+                        "value": "#cbd5e0"
+                    },
+                    "opacity": {
+                        "condition": {"param": "pts", "value": 1},
+                        "value": 0.5
+                    },
+                    "tooltip": [
+                        {"field": "country", "title": "国家"},
+                        {"field": "real_value", "title": "排放量", "format": ",.2f"}
+                    ]
+                }
+            },
+
+            // ======================
+            // 📈 图2：趋势图（安全引用）
+            // ======================
+            {
+                "title": "📈 选中国家历史趋势",
+
+                "width": "container",
+                "height": 200,
+
+                "transform": [
+                    {
+                        "filter": "pts.country != null && datum.country == pts.country"
+                    }
+                ],
+
+                "mark": {
+                    "type": "line",
+                    "point": true
+                },
+
+                "encoding": {
+                    "x": {
+                        "field": "year",
+                        "type": "quantitative",
+                        "title": "年份"
+                    },
+                    "y": {
+                        "field": "real_value",
+                        "type": "quantitative",
+                        "title": "kg CO₂-e"
+                    },
+                    "color": {
+                        "field": "country",
+                        "type": "nominal",
+                        "legend": null
+                    }
+                }
+            }
+        ],
+
+        "config": {
+            "view": {"stroke": null},
+            "axis": {"labelFontSize": 11, "titleFontSize": 12}
+        }
+    };
+
+    vegaEmbed('#vis', spec, {actions: false});
+}
+
+renderVisualization();
+</script>
+
+</body>
+>>>>>>> b983f81a78a0581502d31170c0cbe53c95e60b70
 </html>
