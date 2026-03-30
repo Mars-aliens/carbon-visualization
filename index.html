@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球温室气体排放可视化</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="vis"></div>
+
+    <div class="document-section">
+        <h2>项目说明文档</h2>
+        <p><strong>旨在解答的问题：</strong> 本可视化工具通过交互式地图展示了 1990-2022 年间全球人均温室气体排放量的动态变化，旨在揭示不同经济体在工业化进程中对环境影响的差异。</p>
+        <p><strong>设计决策：</strong> 选用 Equal Earth 投影以确保地理面积的真实比例；交互上采用了动态查询技术，用户可通过滑动条实时观察时间维度下的排放重心漂移。</p>
+        <p><strong>数据来源：</strong> Our World in Data (OWID)</p>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
