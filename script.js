@@ -21,7 +21,7 @@ const spec = {
     {
       "name": "year_selection",
       "value": 2022,
-      "bind": { "input": "range", "min": 1990, "max": 2022, "step": 1, "name": "时间轴: " }
+      "bind": { "input": "range", "min": 1990, "max": 2024, "step": 1, "name": "时间轴: " }
     }
   ],
 
