@@ -26,9 +26,9 @@
 ```text
 carbon-visualization/
 ├── data/                   # 数据文件
-│   ├── data_processed.csv            # 碳排放处理后数据
-│   ├── owid-co2-data.csv             # 碳排放原始数据
-│   └── countries-50m.json            # 地图数据
+│   ├── data_processed.csv  # 碳排放处理后数据
+│   ├── owid-co2-data.csv   # 碳排放原始数据
+│   └── countries-50m.json  # 地图数据
 ├── script.js               # 存放 Vega-Lite 的 JSON 配置文件 (Spec)
 ├── index.html              # 项目主入口页面
 ├── style.css               # 基础样式
