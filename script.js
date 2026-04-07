@@ -1,6 +1,5 @@
 const spec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  // 1. 核心修复：全局自动尺寸和边距
   "autosize": { "type": "fit", "contains": "padding" },
   "padding": { "left": 20, "top": 20, "right": 30, "bottom": 20 },
   
@@ -28,7 +27,7 @@ const spec = {
   "vconcat": [
     {
       // --- 地图部分 ---
-      "width": 800, // 建议设为一个固定基准值，配合容器缩放
+      "width": 800, 
       "height": 400,
       "projection": { "type": "equalEarth" },
       "layer": [
@@ -95,7 +94,7 @@ const spec = {
               "type": "quantitative", 
               "axis": { "format": "d", "labelFlush": true, "grid": false }, 
               "title": "年份",
-              "scale": { "domain": [1989, 2023] } // 留出左右呼吸空间
+              "scale": { "domain": [1989, 2023] }
             },
             "y": { 
               "field": "co2_per_capita", 
