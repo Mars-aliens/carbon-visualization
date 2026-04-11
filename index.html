@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全球碳排放交互可视化</title>
+    <title>全球碳排放交互可视化分析</title>
 
+    <!-- Vega -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -14,11 +15,67 @@
 
 <body>
 
-<h1>🌍 全球碳排放交互分析</h1>
+    <!-- 标题区域 -->
+    <header>
+        <h1>🌍 全球碳排放交互分析</h1>
+        <p>
+            通过交互选择年份区间并悬停查看数据，
+            探索全球碳排放的空间分布与变化趋势。
+        </p>
+    </header>
 
-<div id="vis"></div>
+    <!-- 可视化 -->
+    <div id="vis"></div>
 
-<script src="script.js"></script>
+    <!-- 文档说明 -->
+    <article class="document-section">
+        
+        <section>
+            <h2>1. 可视化旨在解答的问题</h2>
+            <p>
+                本项目旨在探索：
+                <strong>过去两个世纪以来全球碳排放的地理重心如何随工业化进程演变，
+                以及主要排放国家在总量与人均维度上的差异。</strong>
+            </p>
+            <p>
+                用户可以通过交互识别历史排放大国，并观察新兴经济体在近几十年的增长趋势。
+            </p>
+        </section>
+
+        <section>
+            <h2>2. 设计决策依据</h2>
+
+            <p><strong>可视化编码：</strong></p>
+            <ul>
+                <li>使用等值线地图展示全球空间分布</li>
+                <li>通过顺序色阶直观表达碳排放强度</li>
+                <li>结合时间序列图观察变化趋势</li>
+            </ul>
+
+            <p><strong>交互设计：</strong></p>
+            <ul>
+                <li>刷选（Brushing）：选择年份区间并动态更新地图</li>
+                <li>Tooltip：悬停查看详细数据</li>
+                <li>指标切换：支持总量与人均排放对比</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. 外部资源引用</h2>
+            <ul>
+                <li>
+                    数据源：
+                    <a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank">
+                        Our World in Data (CO₂ dataset)
+                    </a>
+                </li>
+                <li>地图底图：TopoJSON World Atlas (50m)</li>
+            </ul>
+        </section>
+
+    </article>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
